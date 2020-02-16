@@ -12,6 +12,7 @@ q = quote_plus(query)
 page = "https://www.google.ru/"
 search_yandex = 'https://www.yandex.ru/search/?lr=213&text={}'
 
+
 def get_page(query, w=True):
     query = '"' + query + '"'
     query = quote_plus(query)
@@ -21,12 +22,14 @@ def get_page(query, w=True):
     request.add_header('User-Agent', USER_AGENT)
     response = urlopen(request)
     html = response.read()
+    print(response.code)
     response.close()
 
     if w:
         with open('index.html', 'w') as f:
             f.write(html.decode('utf-8'))
     return html
+
 
 def yandex(query):
     snippets_links = {}
@@ -42,18 +45,19 @@ def yandex(query):
     # print(soup.prettify())
     blocks = soup.find_all('div', class_='serp-item')
     print(34, type(blocks))
-    for b in blocks:
+    for b in blocks :
         print(type(b))
         snip = b.find('div', class_='serp-item__text')
         link = b.find('a', class_='serp-item__title-link')
         if snip and query.lower() in snip.text.lower():
             list_snippets.append(snip.text.lower())
-        else:
-            list_snippets.append('')
-        if link:
             list_links.append(link.get('href'))
-        else:
-            list_links.append('')
+            print(66, link)
+        # else:
+        #     list_snippets.append('')
+        # if link:
+        # else:
+        #     list_links.append('')
 
 
 
