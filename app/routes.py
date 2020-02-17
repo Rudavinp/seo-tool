@@ -17,11 +17,11 @@ def index():
         list_matches = {}
         flash('Your text is being processed - {}'.format(form.text.data))
         list_sentences = form.text.data.split('.')
+        [list_sentences.remove(x) for x in list_sentences if not x]
 
         for sen in list_sentences:
-            time.sleep(2)
+            time.sleep(3)
             result = yandex(sen)
-            print(1, result)
             if result:
                 list_matches[sen] = result
             else:
@@ -35,8 +35,8 @@ def index():
 
         text = '.'.join(list_to_template)
         text = Markup('<p>{}</p>'.format(text))
-        print(12, list_sentences)
-        print(12, text)
+        print(12, list_matches)
+
         # snippets = yandex(form.text.data)
 
 
