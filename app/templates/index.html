@@ -3,33 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <title>Easy_seo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
-    <h1>Easy_seo</h1>
-    <form action="" method="post" novalidate>
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.text.label }}<br>
-            {{ form.text(style="width: 668px; height: 135px;") }}
-            {% for error in form.text.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        <p>
-            {{ form.submit() }}
-        </p>
-    </form>
-    {{text}}
+    <div class="container-fluid">
+        <div class="row">
+            <h1>Easy_seo</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <form action="" method="post" novalidate>
+                    <div class="form-group">
+                    {{ form.hidden_tag() }}
+                    <p>
+                        {{ form.text.label }}<br>
+                        {{ form.text(style="width: 80%; height: 80%") }}
+                        {% for error in form.text.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    <p>
+                        {{ form.submit() }}
+                    </p>
+                    </div>
+                </form>
+                {{text}}
 
-    <hr>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <ul>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
+                <hr>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+            </div>
+            <div class="col-md-6">
+                <p>List of links here</p>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Имя</th>
+                      <th scope="col">Фамилия</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>Mark</td>
+                      <td>Otto</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>Thornton</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td>Larry</td>
+                      <td>the Bird</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
 
 </body>
 </html>

@@ -39,6 +39,7 @@ def index():
         print(12, list_sentences)
         print(12, text)
         # snippets = yandex(form.text.data)
+        list = list_matches
 
 
         # return redirect(url_for('index', text=text))
