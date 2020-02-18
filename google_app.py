@@ -1,3 +1,5 @@
+import time
+
 from googlesearch import search
 from urllib.request import Request, urlopen
 from urllib.parse import quote_plus
@@ -39,87 +41,115 @@ def get_page(query, w=True):
             f.write(html.decode('utf-8'))
     return html
 
-<<<<<<< HEAD
 opts = Options()
-opts.set_headless()
-assert opts.headless
+# opts.set_headless()
+# assert opts.headless
 
 
 def get_page_with_selenium(query):
-    query = '"' + query + '"'
+    yandex_dict = {}
+    # query = '"' + query + '"'
     print('yabdex - 1')
+    # print(3, query)
     driver = Firefox(options=opts)
 
-    # driver.wait = WebDriverWait(driver, 2)
+    driver.wait = WebDriverWait(driver, 5)
 
     driver.get('https://www.yandex.ru')
-    try:
+    # try:
+    # #
+    # #     # box = driver.find_element_by_id('text')
+    # #
+    #     box = driver.wait.until(EC.presence_of_element_located(
+    #         (By.ID, 'text'),
+    #     ))
+    # #     print(12)
+    # #     button = driver.find_element_by_class_name('suggest2-form__button')
+    #     button = driver.wait.until(EC.presence_of_element_located(
+    #         (By.CLASS_NAME, 'suggest2-form__button')
+    #     ))
+    #     box.send_keys(query)
+    #     button.click()
+    # except TimeoutException:
+    #     print('Box or Button didnt find')
+    sent = '"' + query[0] +'"'
+    box = driver.find_element_by_name('text')
+    button = driver.find_element_by_class_name('suggest2-form__button')
+    box.send_keys(sent)
+    button.click()
+    yandex_dict[sent] = driver.page_source
 
-        box = driver.find_element_by_id('text')
-
-        # box = driver.wait.until(EC.presence_of_element_located(
-        #     (By.ID, 'text'),
-        # ))
-        print(12)
-        button = driver.find_element_by_class_name('suggest2-form__button')
-        # button = driver.wait.until(EC.presence_of_element_located(
-        #     (By.CLASS_NAME, 'suggest2-form__button')
-        # ))
-        box.send_keys(query)
+    for sent in query[1:]:
+        time
+        close = driver.find_element_by_class_name('input__clear')
+        close.click()
+        box = driver.find_element_by_name('text')
+        button = driver.find_element_by_class_name('websearch-button')
+        sent = '"' + sent +'"'
+        box.send_keys(sent)
         button.click()
-    except TimeoutException:
-        print('Box or Button didnt find')
+        yandex_dict[sent] = driver.page_source
+
+    print(len(yandex_dict))
+
     html = driver.page_source
 
     driver.close()
     with open('index.html', 'w') as f:
         f.write(html)
-    return html
-=======
->>>>>>> fd3743067c3a589eeb906be8038717619c4faf43
+    return yandex_dict
 
 def yandex(query):
-    list_snippets = []
-    list_links = []
 
-    html = get_page(query)
-    # html = get_page_with_selenium(query)
-    soup = BeautifulSoup(html, 'html.parser')
+
+    # html = get_page(query)
+    ya_dict = get_page_with_selenium(query)
+
+    for html in ya_dict:
+        list_snippets = []
+        list_links = []
+        soup = BeautifulSoup(ya_dict[html], 'html.parser')
 
     # snippets = soup.findAll('div', class_='serp-item__text')
     # print(soup.prettify())
-    not_found = soup.find('div', class_= 'misspell')
 
-    if not_found:
-        return []
-    blocks = soup.find_all('div', class_='serp-item')
-<<<<<<< HEAD
-    for b in blocks:
+        ya_capcha = soup.find('p', class_='text-wrapper text-wrapper_info')
+        if ya_capcha and ya_capcha.text.startswith('Нам очень жаль'):
+            print(222, ya_capcha)
+            return 'Ya Capcha'
 
-=======
-    print(34, type(blocks))
-    for b in blocks :
-        print(type(b))
->>>>>>> fd3743067c3a589eeb906be8038717619c4faf43
-        snip = b.find('div', class_='serp-item__text')
-        # snip = b.find('div', class_='extended-text')
-        link = b.find('a', class_='serp-item__title-link')
-        # link = b.find('a', class_='path path_show-https')
+        not_found = soup.find('div', class_= 'misspell')
 
-        if snip and query.lower() in snip.text.lower():
-            list_snippets.append(snip.text.lower())
-<<<<<<< HEAD
-        if link:
-            list_links.append(link.get('href'))
+        if not_found and not_found.text.startswith('Точного совпадения не нашлось'):
+            print(99999)
+            ya_dict[html] = []
+            continue
+        # blocks = soup.find_all('div', class_='serp-item')
+        blocks = soup.find_all('div', class_='organic')
+        # print(99, blocks)
 
-=======
-            list_links.append(link.get('href'))
-            print(66, link)
-        # else:
-        #     list_snippets.append('')
-        # if link:
-        # else:
-        #     list_links.append('')
+        for b in blocks :
+            advertise = b.find('div', class_='label')
+            if advertise and advertise.text == 'реклама':
+                print(888, advertise.text)
+                continue
+            snip = b.find('div', class_='text-container')
+            # snip = b.find('div', class_='extended-text')
+            link = b.find('a', class_='link')
+            # print(777, link)
+            # link = b.find('a', class_='path path_show-https')
+            print(44, html.lower().strip('"'))
+            if snip:
+                print(44, html.lower().strip('"'))
+                print(45, snip.text.lower())
+            if snip and html.lower().strip('"') in snip.text.lower():
+                list_snippets.append(snip.text.lower())
+                print(65, snip.text.lower())
+                if link:
+                    list_links.append(link.get('href'))
+                # print(66, link.get('href'))
+
+        ya_dict[html] = list_links
 
 
 
@@ -136,14 +166,14 @@ def yandex(query):
     # list_links = [l.text.lower() for l in links if ]
     # for s in snippets:
     #     list_snippets.append(s.text.lower())
+    # #
+    #     for s in list_snippets:
+    #         if query.lower() in s:
+    #             list_snippets[list_snippets.index(s)] = list_snippets[list_snippets.index(s)] + '_yes'
+    #         else:
+    #             list_snippets[list_snippets.index(s)]  = list_snippets[list_snippets.index(s)]  + '_not'
     #
->>>>>>> fd3743067c3a589eeb906be8038717619c4faf43
-    for s in list_snippets:
-        if query.lower() in s:
-            list_snippets[list_snippets.index(s)] = list_snippets[list_snippets.index(s)] + '_yes'
-        else:
-            list_snippets[list_snippets.index(s)]  = list_snippets[list_snippets.index(s)]  + '_not'
-
-    snippets_links = zip(list_snippets, list_links)
-    return list_links
+    #     snippets_links = zip(list_snippets, list_links)
+    print(type(ya_dict))
+    return ya_dict
 

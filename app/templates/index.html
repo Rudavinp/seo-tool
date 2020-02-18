@@ -18,7 +18,7 @@
                     {{ form.hidden_tag() }}
                     <p>
                         {{ form.text.label }}<br>
-                        {{ form.text(style="width: 80%; height: 80%") }}
+                        {{ form.text(style="width: 88%; height: 214px") }}
                         {% for error in form.text.errors %}
                         <span style="color: red;">[{{ error }}]</span>
                         {% endfor %}
@@ -42,32 +42,30 @@
             </div>
             <div class="col-md-6">
                 <p>List of links here</p>
+                {% if list %}
                 <table class="table table-striped">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">Имя</th>
-                      <th scope="col">Фамилия</th>
+                      <th scope="col">Sentence</th>
+                      <th scope="col">Links</th>
                     </tr>
                   </thead>
                   <tbody>
+                  {% for sent, links in list.items() %}
+                  {% if links %}
                     <tr>
                       <th scope="row">1</th>
-                      <td>Mark</td>
-                      <td>Otto</td>
+                      <td>{{ sent|truncate (50) }}</td>
+                        {% for link in links[:2] %}
+                      <td><a href="{{ link }}">{{ link|truncate (50) }}</a> </td>
+                        {% endfor %}
                     </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Jacob</td>
-                      <td>Thornton</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>Larry</td>
-                      <td>the Bird</td>
-                    </tr>
+                  {% endif %}
+                  {% endfor %}
                   </tbody>
                 </table>
+                {% endif %}
             </div>
         </div>
     </div>

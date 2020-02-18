@@ -7,28 +7,43 @@ import time
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    list_matches = []
     form = InputTextForm()
     text_ = "Text"
     text = Markup('<span style="color: #fa8e47">{}</span>'.format(text_))
-    # text = Markup('<p>{}</p>'.format(str('<span style="color: #fa8e47">У людей было много видов, до наших дней дожил только один – современный человек разумный</span>.<span style="color: #fa8e47"> Много ветвей человечества оказались тупиковыми и вымерли в результате природных катаклизмов, войн и эволюции</span>.<span style="color: #fa8e47"> О восьми представителях людского рода, ведущих свою историю 2,8 млн лет – в нашем материале</span>.<span style="color: #fa8e47"></span>')))
 
     if form.validate_on_submit():
         list_to_template = []
         list_matches = {}
         flash('Your text is being processed - {}'.format(form.text.data))
         list_sentences = form.text.data.split('.')
-        [list_sentences.remove(x) for x in list_sentences if not x]
+        print(8, list_sentences)
+        for i in range(len(list_sentences)):
+            if not list_sentences[i] or len(list_sentences[i]) < 2:
+                list_sentences.remove(list_sentences[i])
 
-        for sen in list_sentences:
-            time.sleep(3)
-            result = yandex(sen)
-            if result:
-                list_matches[sen] = result
-            else:
-                list_matches[sen] = []
+        print(88, list_sentences)
 
-        for k, v in list_matches.items():
-            if list_matches.get(k):
+        list_sentences = list(map(lambda x: x.strip(), list_sentences))
+
+        print(888, list_sentences)
+        for i in range(len(list_sentences)):
+            if len(list_sentences[i].split()) > 10:
+                list_sentences[i] = ' '.join(list_sentences[i].split()[:10])
+        print(888888, list_sentences)
+
+        result_dict = yandex(list_sentences)
+
+        # for sen in list_sentences:
+        #     # time.sleep(3)
+        #     result = yandex(sen)
+        #     if result:
+        #         list_matches[sen] = result
+        #     else:
+        #         list_matches[sen] = []
+
+        for k, v in result_dict.items():
+            if result_dict.get(k):
                 print(22)
                 list_to_template.append(Markup('<span style="color: #FF6347">{}</span>'.format(k)))
             else:
@@ -36,12 +51,11 @@ def index():
 
         text = '.'.join(list_to_template)
         text = Markup('<p>{}</p>'.format(text))
-        print(12, list_matches)
+        print(12, result_dict)
 
-        # snippets = yandex(form.text.data)
-        list = list_matches
+
 
 
         # return redirect(url_for('index', text=text))
-        return render_template('index.html', form=form, text=text)
-    return render_template('index.html', form=form, text=text)
+        return render_template('index.html', form=form, text=text, list=result_dict)
+    return render_template('index.html', form=form, text=text, list=None)
