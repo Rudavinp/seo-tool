@@ -29,6 +29,7 @@ def index():
 
         for k, v in list_matches.items():
             if list_matches.get(k):
+                print(22)
                 list_to_template.append(Markup('<span style="color: #FF6347">{}</span>'.format(k)))
             else:
                 list_to_template.append(Markup('<span style="color: #00FF00">{}</span>'.format(k)))
@@ -38,6 +39,7 @@ def index():
         print(12, list_matches)
 
         # snippets = yandex(form.text.data)
+        list = list_matches
 
 
         # return redirect(url_for('index', text=text))

@@ -31,6 +31,7 @@ def get_page(query, w=True):
     request.add_header('User-Agent', USER_AGENT)
     response = urlopen(request)
     html = response.read()
+    print(response.code)
     response.close()
 
     if w:
@@ -38,6 +39,7 @@ def get_page(query, w=True):
             f.write(html.decode('utf-8'))
     return html
 
+<<<<<<< HEAD
 opts = Options()
 opts.set_headless()
 assert opts.headless
@@ -73,6 +75,8 @@ def get_page_with_selenium(query):
     with open('index.html', 'w') as f:
         f.write(html)
     return html
+=======
+>>>>>>> fd3743067c3a589eeb906be8038717619c4faf43
 
 def yandex(query):
     list_snippets = []
@@ -89,8 +93,14 @@ def yandex(query):
     if not_found:
         return []
     blocks = soup.find_all('div', class_='serp-item')
+<<<<<<< HEAD
     for b in blocks:
 
+=======
+    print(34, type(blocks))
+    for b in blocks :
+        print(type(b))
+>>>>>>> fd3743067c3a589eeb906be8038717619c4faf43
         snip = b.find('div', class_='serp-item__text')
         # snip = b.find('div', class_='extended-text')
         link = b.find('a', class_='serp-item__title-link')
@@ -98,9 +108,36 @@ def yandex(query):
 
         if snip and query.lower() in snip.text.lower():
             list_snippets.append(snip.text.lower())
+<<<<<<< HEAD
         if link:
             list_links.append(link.get('href'))
 
+=======
+            list_links.append(link.get('href'))
+            print(66, link)
+        # else:
+        #     list_snippets.append('')
+        # if link:
+        # else:
+        #     list_links.append('')
+
+
+
+    # links = soup.find_all('a')
+    # print(33, links)
+    # links_ = soup.find_all('a', class_='serp-item__title-link')
+    # print(len(snippets))
+    # print(len(links_))
+    # for _ in links_:
+    #     print(55, _.get('href'))
+    # for l in links:
+    #     print(33, l.get('class'))
+    #     print(44, l.get('href'))
+    # list_links = [l.text.lower() for l in links if ]
+    # for s in snippets:
+    #     list_snippets.append(s.text.lower())
+    #
+>>>>>>> fd3743067c3a589eeb906be8038717619c4faf43
     for s in list_snippets:
         if query.lower() in s:
             list_snippets[list_snippets.index(s)] = list_snippets[list_snippets.index(s)] + '_yes'

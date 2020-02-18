@@ -3,12 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="e1a08e2d-7bd4-4c21-ac49-5e37e91d5d0e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/google_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/google_app.py" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/app/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/index.html" afterDir="false" />
+>>>>>>> fd3743067c3a589eeb906be8038717619c4faf43
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mickroBlog/.idea/mickroBlog.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../mickroBlog/.idea/mickroBlog.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mickroBlog/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mickroBlog/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mickroBlog/microblog.py" beforeDir="false" afterPath="$PROJECT_DIR$/../mickroBlog/microblog.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +37,7 @@
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../mickroBlog" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -58,15 +59,20 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="771" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1581503599897">
+    <state x="771" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1581836868766">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="771" y="310" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1581503599897" />
-    <state x="482" y="187" key="SettingsEditor" timestamp="1581658453888">
+    <state x="771" y="310" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1581836868766" />
+    <state x="482" y="187" key="SettingsEditor" timestamp="1581836879607">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
+<<<<<<< HEAD
     <state x="482" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1581658453888" />
     <state x="649" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1582003157509">
+=======
+    <state x="482" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1581836879607" />
+    <state x="649" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1581657505586">
+>>>>>>> fd3743067c3a589eeb906be8038717619c4faf43
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="649" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1582003157509" />
