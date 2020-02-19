@@ -15,25 +15,31 @@ from selenium.common.exceptions import TimeoutException
 
 
 USER_AGENT = 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0)'
-# USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0'
 
-query = '"Я люблю айфон"'
-q = quote_plus(query)
-
-page = "https://www.google.ru/"
-search_yandex = 'https://www.yandex.ru/search/?lr=213&text={}'
+PAGE = "https://www.yandex.ru/"
+SEARCH_YANDEX = 'https://www.yandex.ru/search/?lr=213&text={}'
 
 
 def get_page(query, w=True):
+    """
+    This function take param: query -> str
+    pars it with quote_plus() for replaces spaces by plus
+    and get request to the yandex.ru with user_agent
+    If flag w=True html-code of page write to file.
+    :param query: str
+    :param w: bool write or not page to file (default=True)
+    :return: html page
+    """
+    # TODO yandex.ru often blocks requests from this func.
+    # TODO How we can resolve this?
+
     query = '"' + query + '"'
     query = quote_plus(query)
-    page = search_yandex.format(query)
-    print(1, page)
+    page = SEARCH_YANDEX.format(query)
     request = Request(page)
     request.add_header('User-Agent', USER_AGENT)
     response = urlopen(request)
     html = response.read()
-    print(response.code)
     response.close()
 
     if w:
@@ -41,20 +47,17 @@ def get_page(query, w=True):
             f.write(html.decode('utf-8'))
     return html
 
-opts = Options()
-# opts.set_headless()
-# assert opts.headless
+
 
 
 def get_page_with_selenium(query):
+
     yandex_dict = {}
-    # query = '"' + query + '"'
-    print('yabdex - 1')
-    # print(3, query)
+
+    opts = Options()
+    opts.set_headless()
     driver = Firefox(options=opts)
-
     driver.wait = WebDriverWait(driver, 5)
-
     driver.get('https://www.yandex.ru')
     # try:
     # #
@@ -72,15 +75,16 @@ def get_page_with_selenium(query):
     #     button.click()
     # except TimeoutException:
     #     print('Box or Button didnt find')
+
     sent = '"' + query[0] +'"'
     box = driver.find_element_by_name('text')
     button = driver.find_element_by_class_name('suggest2-form__button')
+    # button = driver.find_element_by_class_name('button mini-suggest__button')
     box.send_keys(sent)
     button.click()
     yandex_dict[sent] = driver.page_source
 
     for sent in query[1:]:
-        time
         close = driver.find_element_by_class_name('input__clear')
         close.click()
         box = driver.find_element_by_name('text')
@@ -90,13 +94,12 @@ def get_page_with_selenium(query):
         button.click()
         yandex_dict[sent] = driver.page_source
 
-    print(len(yandex_dict))
-
     html = driver.page_source
 
     driver.close()
     with open('index.html', 'w') as f:
         f.write(html)
+
     return yandex_dict
 
 def yandex(query):
@@ -118,14 +121,17 @@ def yandex(query):
             print(222, ya_capcha)
             return 'Ya Capcha'
 
-        not_found = soup.find('div', class_= 'misspell')
+        not_found = soup.find('div', class_= 'misspell__message')
+        if not_found:
+            print(10000)
 
         if not_found and not_found.text.startswith('Точного совпадения не нашлось'):
             print(99999)
             ya_dict[html] = []
             continue
-        # blocks = soup.find_all('div', class_='serp-item')
-        blocks = soup.find_all('div', class_='organic')
+
+        blocks = soup.find_all('li', class_='serp-item')
+        # blocks = soup.find_all('div', class_='organic')
         # print(99, blocks)
 
         for b in blocks :
@@ -135,14 +141,15 @@ def yandex(query):
                 continue
             snip = b.find('div', class_='text-container')
             # snip = b.find('div', class_='extended-text')
-            link = b.find('a', class_='link')
-            # print(777, link)
-            # link = b.find('a', class_='path path_show-https')
+
             print(44, html.lower().strip('"'))
             if snip:
                 print(44, html.lower().strip('"'))
                 print(45, snip.text.lower())
             if snip and html.lower().strip('"') in snip.text.lower():
+                link = b.find('a', class_='link')
+                # print(777, link)
+                # link = b.find('a', class_='path path_show-https')
                 list_snippets.append(snip.text.lower())
                 print(65, snip.text.lower())
                 if link:
@@ -174,6 +181,5 @@ def yandex(query):
     #             list_snippets[list_snippets.index(s)]  = list_snippets[list_snippets.index(s)]  + '_not'
     #
     #     snippets_links = zip(list_snippets, list_links)
-    print(type(ya_dict))
     return ya_dict
 
