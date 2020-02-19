@@ -1,1 +1,1 @@
-web:  gunicorn easy-seo:app
+web: gunicorn easy-seo:app
