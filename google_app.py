@@ -52,7 +52,7 @@ def get_page(query, w=True):
 
 
 def get_page_with_selenium(query):
-
+    # COMMENT
     yandex_dict = {}
 
     opts = Options()
