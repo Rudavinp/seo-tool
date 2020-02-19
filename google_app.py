@@ -6,6 +6,7 @@ from urllib.parse import quote_plus
 from bs4 import BeautifulSoup
 
 from selenium.webdriver import Firefox
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -56,7 +57,8 @@ def get_page_with_selenium(query):
 
     opts = Options()
     opts.set_headless()
-    driver = Firefox(options=opts)
+    binary = FirefoxBinary('/app/vendor/firefox/firefox')
+    driver = Firefox(options=opts, firefox_binary=binary)
     driver.wait = WebDriverWait(driver, 5)
     driver.get('https://www.yandex.ru')
     # try:
