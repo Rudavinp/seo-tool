@@ -3,7 +3,14 @@ from app import app
 from app.forms import InputTextForm
 from google_app import yandex
 from markupsafe import Markup
+
 import time
+from rq import Queue
+from redis import Redis
+
+def like_route(result_dict):
+
+    return render_template('index.html', list=result_dict)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -36,7 +43,16 @@ def index():
                 list_sentences[i] = ' '.join(list_sentences[i].split()[:10])
         # print(888888, list_sentences)
 
-        result_dict = yandex(list_sentences)
+        redis_conn = Redis()
+        queue = Queue(connection=redis_conn)
+
+        job = queue.enqueue(yandex, list_sentences)
+        print(job.result)
+        # time.sleep(60)
+        print(job.result)
+        result_dict = job.result
+
+        print(11111111111)
 
         # for sen in list_sentences:
         #     # time.sleep(3)
@@ -45,16 +61,16 @@ def index():
         #         list_matches[sen] = result
         #     else:
         #         list_matches[sen] = []
+        if result_dict:
+            for k, v in result_dict.items():
+                if result_dict.get(k):
+                    # print(22)
+                    list_to_template.append(Markup('<span style="color: #FF6347">{}</span>'.format(k)))
+                else:
+                    list_to_template.append(Markup('<span style="color: #00FF00">{}</span>'.format(k)))
 
-        for k, v in result_dict.items():
-            if result_dict.get(k):
-                # print(22)
-                list_to_template.append(Markup('<span style="color: #FF6347">{}</span>'.format(k)))
-            else:
-                list_to_template.append(Markup('<span style="color: #00FF00">{}</span>'.format(k)))
-
-        text = '.'.join(list_to_template)
-        text = Markup('<p>{}</p>'.format(text))
+            text = '.'.join(list_to_template)
+            text = Markup('<p>{}</p>'.format(text))
         # print(12, result_dict)
 
 

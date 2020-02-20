@@ -12,7 +12,9 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 # from selenium.webdriver.support import expected_conditions as EC
 # from selenium.common.exceptions import TimeoutException
-
+from markupsafe import Markup
+from flask import render_template
+from app.routes import like_route
 
 
 USER_AGENT = 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0)'
@@ -58,9 +60,9 @@ def get_page_with_selenium(query, w=False):
     opts = Options()
     opts.set_headless()
     binary = FirefoxBinary('/app/vendor/firefox/firefox')
-    driver = Firefox(options=opts, firefox_binary=binary, executable_path=r'/app/vendor/geckodriver/geckodriver')
+    # driver = Firefox(options=opts, firefox_binary=binary, executable_path=r'/app/vendor/geckodriver/geckodriver')
     # driver = Firefox(options=opts, firefox_binary=binary)
-    # driver = Firefox(options=opts)
+    driver = Firefox(options=opts)
     driver.wait = WebDriverWait(driver, 5)
     driver.get('https://www.yandex.ru')
     # try:
@@ -111,6 +113,7 @@ def yandex(query):
 
 
     # html = get_page(query)
+    print(43423434234242)
     ya_dict = get_page_with_selenium(query)
 
     for html in ya_dict:
@@ -159,9 +162,31 @@ def yandex(query):
                 # print(65, snip.text.lower())
                 if link:
                     list_links.append(link.get('href'))
-                # print(66, link.get('href'))
 
-        ya_dict[html] = list_links
+                # print(66, link.get('href'))
+        list_to_template = []
+        result_dict = ya_dict
+        if result_dict:
+            for k, v in result_dict.items():
+                if result_dict.get(k):
+                    # print(22)
+                    list_to_template.append(Markup('<span style="color: #FF6347">{}</span>'.format(k)))
+                else:
+                    list_to_template.append(Markup('<span style="color: #00FF00">{}</span>'.format(k)))
+
+            text = '.'.join(list_to_template)
+            text = Markup('<p>{}</p>'.format(text))
+        # print(12, result_dict)
+            print('olololol')
+            like_route(result_dict)
+            return render_template('index.html', text=text, list=result_dict)
+
+
+
+        # return redirect(url_for('index', text=text))
+
+
+        # ya_dict[html] = list_links
 
 
 
