@@ -1,6 +1,6 @@
-import time
+# import time
 
-from googlesearch import search
+# from googlesearch import search
 from urllib.request import Request, urlopen
 from urllib.parse import quote_plus
 from bs4 import BeautifulSoup
@@ -8,10 +8,10 @@ from bs4 import BeautifulSoup
 from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.common.by import By
+# from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
+# from selenium.webdriver.support import expected_conditions as EC
+# from selenium.common.exceptions import TimeoutException
 
 
 
@@ -51,15 +51,16 @@ def get_page(query, w=True):
 
 
 
-def get_page_with_selenium(query):
+def get_page_with_selenium(query, w=False):
     # COMMENT
     yandex_dict = {}
 
     opts = Options()
     opts.set_headless()
     binary = FirefoxBinary('/app/vendor/firefox/firefox')
-    # driver = Firefox(options=opts, firefox_binary=binary, executable_path=r'/app/vendor/geckodriver/geckodriver')
-    driver = Firefox(options=opts, firefox_binary=binary)
+    driver = Firefox(options=opts, firefox_binary=binary, executable_path=r'/app/vendor/geckodriver/geckodriver')
+    # driver = Firefox(options=opts, firefox_binary=binary)
+    # driver = Firefox(options=opts)
     driver.wait = WebDriverWait(driver, 5)
     driver.get('https://www.yandex.ru')
     # try:
@@ -100,8 +101,9 @@ def get_page_with_selenium(query):
     html = driver.page_source
 
     driver.close()
-    with open('index.html', 'w') as f:
-        f.write(html)
+    if w:
+        with open('index.html', 'w') as f:
+            f.write(html)
 
     return yandex_dict
 
@@ -121,15 +123,15 @@ def yandex(query):
 
         ya_capcha = soup.find('p', class_='text-wrapper text-wrapper_info')
         if ya_capcha and ya_capcha.text.startswith('Нам очень жаль'):
-            print(222, ya_capcha)
+            # print(222, ya_capcha)
             return 'Ya Capcha'
 
         not_found = soup.find('div', class_= 'misspell__message')
-        if not_found:
-            print(10000)
+        # if not_found:
+        #     print(10000)
 
         if not_found and not_found.text.startswith('Точного совпадения не нашлось'):
-            print(99999)
+            # print(99999)
             ya_dict[html] = []
             continue
 
@@ -140,21 +142,21 @@ def yandex(query):
         for b in blocks :
             advertise = b.find('div', class_='label')
             if advertise and advertise.text == 'реклама':
-                print(888, advertise.text)
+                # print(888, advertise.text)
                 continue
             snip = b.find('div', class_='text-container')
             # snip = b.find('div', class_='extended-text')
 
-            print(44, html.lower().strip('"'))
-            if snip:
-                print(44, html.lower().strip('"'))
-                print(45, snip.text.lower())
+            # print(44, html.lower().strip('"'))
+            # if snip:
+            #     print(44, html.lower().strip('"'))
+            #     print(45, snip.text.lower())
             if snip and html.lower().strip('"') in snip.text.lower():
                 link = b.find('a', class_='link')
                 # print(777, link)
                 # link = b.find('a', class_='path path_show-https')
                 list_snippets.append(snip.text.lower())
-                print(65, snip.text.lower())
+                # print(65, snip.text.lower())
                 if link:
                     list_links.append(link.get('href'))
                 # print(66, link.get('href'))
