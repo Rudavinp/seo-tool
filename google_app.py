@@ -14,7 +14,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 # from selenium.common.exceptions import TimeoutException
 from markupsafe import Markup
 from flask import render_template
-from app.routes import like_route
+from app import routes
 
 
 USER_AGENT = 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0)'
@@ -165,6 +165,7 @@ def yandex(query):
 
                 # print(66, link.get('href'))
         list_to_template = []
+
         result_dict = ya_dict
         if result_dict:
             for k, v in result_dict.items():
@@ -178,8 +179,9 @@ def yandex(query):
             text = Markup('<p>{}</p>'.format(text))
         # print(12, result_dict)
             print('olololol')
-            like_route(result_dict)
-            return render_template('index.html', text=text, list=result_dict)
+            # routes.like_route(result_dict)
+            print('kekek')
+            return result_dict
 
 
 
