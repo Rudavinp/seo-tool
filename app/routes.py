@@ -33,7 +33,6 @@ def index():
         list_sentences = list(map(lambda x: x.strip(), list_sentences))
         # print(88, list_sentences)
 
-
         for i in range(len(list_sentences)):
             if not list_sentences[i] or len(list_sentences[i]) < 3:
                 list_sentences.remove(list_sentences[i])
