@@ -167,6 +167,9 @@ def yandex(query):
         list_to_template = []
 
         result_dict = ya_dict
+        print(777777, result_dict)
+
+
         if result_dict:
             for k, v in result_dict.items():
                 if result_dict.get(k):
@@ -181,7 +184,7 @@ def yandex(query):
             print('olololol')
             # routes.like_route(result_dict)
             print('kekek')
-            print(777777, result_dict)
+
 
             return result_dict
 
