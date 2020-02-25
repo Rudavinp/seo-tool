@@ -213,5 +213,6 @@ def yandex(query):
     #             list_snippets[list_snippets.index(s)]  = list_snippets[list_snippets.index(s)]  + '_not'
     #
     #     snippets_links = zip(list_snippets, list_links)
+    print(333333, ya_dict)
     return ya_dict
 
