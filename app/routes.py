@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, url_for, session
-from app import app
+from app import app, queue
 from app.forms import InputTextForm
 import google_app
 from markupsafe import Markup
@@ -11,11 +11,11 @@ from rq import Queue
 from redis import Redis
 
 # redis_conn = Redis()
-redis_url = os.getenv('REDIST_URL', 'redis://h:pcca8fa4d56999061b8cc40aa6abea4c1fdda75cc3e76e9c7a8f9b5db8ffde17a@ec2-52-2-166-2.compute-1.amazonaws.com:17129')
-
-conn = redis.from_url(redis_url)
-
-queue = Queue(connection=conn)
+# redis_url = os.getenv('REDIST_URL', 'redis://h:pcca8fa4d56999061b8cc40aa6abea4c1fdda75cc3e76e9c7a8f9b5db8ffde17a@ec2-52-2-166-2.compute-1.amazonaws.com:17129')
+#
+# conn = redis.from_url(redis_url)
+#
+# queue = Queue(connection=conn)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -25,7 +25,7 @@ def index():
     form = InputTextForm()
     text_ = "Text"
     jobs =  queue.jobs
-    print(5454545, jobs)
+    print(5454545, jobs[0])
     text = Markup('<span style="color: #fa8e47">{}</span>'.format(text_))
 
     if form.validate_on_submit():
