@@ -55,6 +55,13 @@ def get_page(query, w=True):
 
 def get_page_with_selenium(query, w=False):
     # COMMENT
+    """
+    geckodriver&firefox: https://elements.heroku.com/buildpacks/evosystem-jp/heroku-buildpack-firefox
+    add RedosToGo on Heroku
+    :param query:
+    :param w:
+    :return:
+    """
     yandex_dict = {}
 
     opts = Options()
