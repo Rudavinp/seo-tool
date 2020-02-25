@@ -60,7 +60,7 @@ def index():
 
         # result_dict = job.result
 
-        print(11111111111)
+        print(11111111111, session['key'])
 
         # for sen in list_sentences:
         #     # time.sleep(3)
@@ -70,8 +70,9 @@ def index():
         #     else:
         #         list_matches[sen] = []
     try:
+        print(22222, session['key'])
         res = queue.fetch_job(session['key'])
-
+        print(222222, res)
         result_dict = res.result
         print(4444444, result_dict)
         if result_dict:
