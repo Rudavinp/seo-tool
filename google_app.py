@@ -65,7 +65,7 @@ def get_page_with_selenium(query, w=False):
     # driver = Firefox(options=opts)
     driver.wait = WebDriverWait(driver, 5)
     driver.get('https://www.yandex.ru')
-    # try:
+    # try:heroku buildpacks:add https://github.com/ronnielivingsince1994/heroku-integrated-firefox-geckodriver
     # #
     # #     # box = driver.find_element_by_id('text')
     # #
