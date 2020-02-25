@@ -167,7 +167,7 @@ def yandex(query):
         list_to_template = []
 
         result_dict = ya_dict
-        print(777777, result_dict)
+        print(777777, list_links)
 
 
         if result_dict:
@@ -218,6 +218,6 @@ def yandex(query):
     #             list_snippets[list_snippets.index(s)]  = list_snippets[list_snippets.index(s)]  + '_not'
     #
     #     snippets_links = zip(list_snippets, list_links)
-    print(333333, ya_dict)
+    # print(333333, ya_dict)
     return ya_dict
 
