@@ -27,7 +27,7 @@ def index():
     jobs =  queue.jobs
 
     print(5454545, jobs, type(jobs))
-    print(5454, print(jobs[0].result))
+    # print(5454, print(jobs[0].result))
     text = Markup('<span style="color: #fa8e47">{}</span>'.format(text_))
 
     if form.validate_on_submit():
