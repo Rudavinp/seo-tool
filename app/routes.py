@@ -85,6 +85,6 @@ def index():
         # return redirect(url_for('index', text=text))
         # return render_template('index.html', form=form, text=text, list=result_dict)
 
-    #comment
+
     return render_template('index.html', form=form, text=text, list=result_dict)
 
