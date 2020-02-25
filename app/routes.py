@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, url_for, session
-from app import app, r, q
+from app import app
 from app.forms import InputTextForm
 import google_app
 from markupsafe import Markup
@@ -8,8 +8,8 @@ import time
 from rq import Queue
 from redis import Redis
 
-# redis_conn = Redis()
-# queue = Queue(connection=redis_conn)
+redis_conn = Redis()
+queue = Queue(connection=redis_conn)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -18,7 +18,7 @@ def index():
     list_to_template = []
     form = InputTextForm()
     text_ = "Text"
-    jobs =  q.jobs
+    jobs =  queue.jobs
     print(5454545, jobs)
     text = Markup('<span style="color: #fa8e47">{}</span>'.format(text_))
 
@@ -47,7 +47,7 @@ def index():
 
 
 
-        job = q.enqueue(google_app.yandex, list_sentences)
+        job = queue.enqueue(google_app.yandex, list_sentences)
         session['key'] = job.id
 
         # result_dict = job.result
@@ -62,7 +62,7 @@ def index():
         #     else:
         #         list_matches[sen] = []
     try:
-        res = q.fetch_job(session['key'])
+        res = queue.fetch_job(session['key'])
 
         result_dict = res.result
         print(4444444, result_dict)
