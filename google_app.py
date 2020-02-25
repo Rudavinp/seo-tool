@@ -60,7 +60,7 @@ def get_page_with_selenium(query, w=False):
     opts = Options()
     opts.set_headless()
     binary = FirefoxBinary('/app/vendor/firefox/firefox')
-    driver = Firefox(options=opts, firefox_binary=binary, executable_path=r'/app/vendor/geckodriver/geckodriver')
+    driver = Firefox(options=opts, firefox_binary=binary, executable_path='/app/vendor/geckodriver/geckodriver')
     # driver = Firefox(options=opts, firefox_binary=binary)
     # driver = Firefox(options=opts)
     driver.wait = WebDriverWait(driver, 5)
