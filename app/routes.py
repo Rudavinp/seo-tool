@@ -3,13 +3,18 @@ from app import app
 from app.forms import InputTextForm
 import google_app
 from markupsafe import Markup
+import os
+import redis
 
 import time
 from rq import Queue
 from redis import Redis
 
 redis_conn = Redis()
-queue = Queue(connection=redis_conn)
+redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
+conn = redis.from_url(redis_url)
+
+queue = Queue(connection=conn)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
