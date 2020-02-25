@@ -1,1 +1,1 @@
-web: gunicorn easy_seo:app
+web: sh heroku.sh
