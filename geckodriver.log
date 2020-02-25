@@ -3211,3 +3211,13 @@ JavaScript error: https://yastatic.net/s3/home-static/_/I/-/mpeNSD9ZD3X6Fb3PwoWq
 Exiting due to channel error.
 Exiting due to channel error.
 Exiting due to channel error.
+1582629026135	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilesoF0kl"
+*** You are running in headless mode.
+1582629026822	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1582629027874	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1582629027874	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1582629027875	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1582629027875	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1582629032958	Marionette	INFO	Listening on port 36221
+1582629033024	Marionette	WARN	TLS certificate errors will be ignored for this session
+1582629125618	Marionette	INFO	Stopped listening on port 36221
