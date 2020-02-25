@@ -10,7 +10,7 @@ import time
 from rq import Queue
 from redis import Redis
 
-redis_conn = Redis()
+# redis_conn = Redis()
 redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
 conn = redis.from_url(redis_url)
 
