@@ -27,7 +27,7 @@ def index():
     jobs =  queue.jobs
 
     print(5454545, jobs, type(jobs))
-    print(5454, print(jobs[0]))
+    print(5454, print(jobs[0].result))
     print(54, print(queue.fetch_job(jobs[0])))
     text = Markup('<span style="color: #fa8e47">{}</span>'.format(text_))
 
