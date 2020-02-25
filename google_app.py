@@ -181,6 +181,8 @@ def yandex(query):
             print('olololol')
             # routes.like_route(result_dict)
             print('kekek')
+            print(777777, result_dict)
+
             return result_dict
 
 
