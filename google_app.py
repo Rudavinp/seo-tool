@@ -117,13 +117,27 @@ def get_page_with_selenium(query, w=False):
     return yandex_dict
 
 def yandex(query):
+    result_dict = {}
 
 
     # html = get_page(query)
     print(43423434234242)
-    ya_dict = get_page_with_selenium(query)
 
+    ya_dict = get_page_with_selenium(query)
+    # Dict contain sentences (key) and html page yandex with query
+    # this sentences
+
+    # Parse each html page and check if:
+    # - this page is capcha
+    # - if sentences not found
+
+    # Then split each page for blocks
+    # And check if:
+    # - block is advertise -> continue
+    # - found snepper text in block and check if
+    # sentences in snipper == sentences in query
     for html in ya_dict:
+
         list_snippets = []
         list_links = []
         soup = BeautifulSoup(ya_dict[html], 'html.parser')
@@ -132,6 +146,7 @@ def yandex(query):
     # print(soup.prettify())
 
         ya_capcha = soup.find('p', class_='text-wrapper text-wrapper_info')
+
         if ya_capcha and ya_capcha.text.startswith('Нам очень жаль'):
             # print(222, ya_capcha)
             return 'Ya Capcha'
@@ -171,30 +186,34 @@ def yandex(query):
                 if link:
                     list_links.append(link.get('href'))
 
+                else:
+                    link = 'Problems with link'
+                result_dict[html] = link.get('href')
+            else:
+                result_dict[html] = ''
                 # print(66, link.get('href'))
         list_to_template = []
 
-        result_dict = ya_dict
         print(777777, list_links)
 
 
-        if result_dict:
-            for k, v in result_dict.items():
-                if result_dict.get(k):
-                    # print(22)
-                    list_to_template.append(Markup('<span style="color: #FF6347">{}</span>'.format(k)))
-                else:
-                    list_to_template.append(Markup('<span style="color: #00FF00">{}</span>'.format(k)))
+        # if result_dict:
+        #     for k, v in result_dict.items():
+        #         if result_dict.get(k):
+        #             # print(22)
+        #             list_to_template.append(Markup('<span style="color: #FF6347">{}</span>'.format(k)))
+        #         else:
+        #             list_to_template.append(Markup('<span style="color: #00FF00">{}</span>'.format(k)))
+        #
+        #     text = '.'.join(list_to_template)
+        #     text = Markup('<p>{}</p>'.format(text))
+        # # print(12, result_dict)
+        #     print('olololol')
+        #     # routes.like_route(result_dict)
+        #     print('kekek')
 
-            text = '.'.join(list_to_template)
-            text = Markup('<p>{}</p>'.format(text))
-        # print(12, result_dict)
-            print('olololol')
-            # routes.like_route(result_dict)
-            print('kekek')
 
-
-            return result_dict
+            # return result_dict
 
 
 
@@ -227,5 +246,5 @@ def yandex(query):
     #
     #     snippets_links = zip(list_snippets, list_links)
     # print(333333, ya_dict)
-    return ya_dict
+    return result_dict
 
