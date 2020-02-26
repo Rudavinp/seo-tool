@@ -124,8 +124,8 @@ def yandex(query):
     print(43423434234242)
 
     ya_dict = get_page_with_selenium(query)
-    # Dict contain sentences (key) and html page yandex with query
-    # this sentences
+    # Dict contain sentences [key] and html page yandex with query
+    # this sentences as [item]
 
     # Parse each html page and check if:
     # - this page is capcha
@@ -134,8 +134,11 @@ def yandex(query):
     # Then split each page for blocks
     # And check if:
     # - block is advertise -> continue
-    # - found snepper text in block and check if
-    # sentences in snipper == sentences in query
+    # - found snepper text in block and check
+    # if sentences in snipper == sentences in query
+    # then found link in this block and add to list of links
+    # in the end add to result dict sentences[key]: list_links[item]
+    # func return this result_dict
     for html in ya_dict:
 
         list_snippets = []
