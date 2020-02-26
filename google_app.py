@@ -183,14 +183,12 @@ def yandex(query):
                 # link = b.find('a', class_='path path_show-https')
                 list_snippets.append(snip.text.lower())
                 # print(65, snip.text.lower())
-                if link:
-                    list_links.append(link.get('href'))
-
-                else:
+                _link = link.get('href')
+                    # list_links.append(link.get('href'))
+                if not _link:
                     link = 'Problems with link'
-                result_dict[html] = link.get('href')
-            else:
-                result_dict[html] = ''
+                list_links.append(_link)
+        result_dict[html] = list_links
                 # print(66, link.get('href'))
         list_to_template = []
 
