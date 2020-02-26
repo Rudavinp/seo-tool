@@ -155,6 +155,7 @@ def yandex(query):
                 # print(888, advertise.text)
                 continue
             snip = b.find('div', class_='text-container')
+            print(12334, snip)
             # snip = b.find('div', class_='extended-text')
 
             # print(44, html.lower().strip('"'))
