@@ -34,7 +34,6 @@ def get_page(query, w=True):
     :return: html page
     """
     # TODO yandex.ru often blocks requests from this func.
-    # TODO How we can resolve this?
 
     query = '"' + query + '"'
     query = quote_plus(query)
@@ -66,10 +65,10 @@ def get_page_with_selenium(query, w=False):
 
     opts = Options()
     opts.set_headless()
-    binary = FirefoxBinary('/app/vendor/firefox/firefox')
-    driver = Firefox(options=opts, firefox_binary=binary, executable_path='/app/vendor/geckodriver/geckodriver')
+    # binary = FirefoxBinary('/app/vendor/firefox/firefox')
+    # driver = Firefox(options=opts, firefox_binary=binary, executable_path='/app/vendor/geckodriver/geckodriver')
     # driver = Firefox(options=opts, firefox_binary=binary)
-    # driver = Firefox(options=opts)
+    driver = Firefox(options=opts)
     driver.wait = WebDriverWait(driver, 5)
     driver.get('https://www.yandex.ru')
     # try:
@@ -124,6 +123,7 @@ def yandex(query):
     print(43423434234242)
 
     ya_dict = get_page_with_selenium(query)
+
     # Dict contain sentences [key] and html page yandex with query
     # this sentences as [item]
 
@@ -159,8 +159,8 @@ def yandex(query):
         #     print(10000)
 
         if not_found and not_found.text.startswith('Точного совпадения не нашлось'):
-            # print(99999)
-            ya_dict[html] = []
+            print(4)
+            result_dict[html] = []
             continue
 
         blocks = soup.find_all('li', class_='serp-item')
@@ -171,15 +171,11 @@ def yandex(query):
             advertise = b.find('div', class_='label')
             if advertise and advertise.text == 'реклама':
                 # print(888, advertise.text)
+                print(3)
                 continue
             snip = b.find('div', class_='text-container')
-            print(12334, snip)
             # snip = b.find('div', class_='extended-text')
 
-            # print(44, html.lower().strip('"'))
-            # if snip:
-            #     print(44, html.lower().strip('"'))
-            #     print(45, snip.text.lower())
             if snip and html.lower().strip('"') in snip.text.lower():
                 link = b.find('a', class_='link')
                 # print(777, link)
@@ -189,13 +185,13 @@ def yandex(query):
                 _link = link.get('href')
                     # list_links.append(link.get('href'))
                 if not _link:
-                    link = 'Problems with link'
+                    _link = 'Problems with link'
+                print(2, list_links)
                 list_links.append(_link)
         result_dict[html] = list_links
                 # print(66, link.get('href'))
         list_to_template = []
 
-        print(777777, list_links)
 
 
         # if result_dict:
@@ -247,5 +243,6 @@ def yandex(query):
     #
     #     snippets_links = zip(list_snippets, list_links)
     # print(333333, ya_dict)
+    print(result_dict)
     return result_dict
 
