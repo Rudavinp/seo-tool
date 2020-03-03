@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="WordcountApp">
+<html ng-app="WordcountApp">
 <head>
     <meta charset="UTF-8">
     <title>Easy_seo</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
 
 </head>
 <body ng-controller="WordcountController">
-    <script src="{{ url_for('static', filename='main.js') }}"></script>
+
 
     <div class="container-fluid">
         <div class="row">
@@ -17,20 +16,13 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <form action="" method="post" novalidate role="form" ng-submit="getResults()">
-                    <div class="form-group">
-                    {{ form.hidden_tag() }}
-                    <p>
-                        {{ form.text.label }}<br>
-                        {{ form.text(style="width: 88%; height: 214px") }}
-                        {% for error in form.text.errors %}
-                        <span style="color: red;">[{{ error }}]</span>
-                        {% endfor %}
-                    <p>
-                        {{ form.submit() }}
-                    </p>
-                    </div>
-                </form>
+                <form role="form" method="post" ng-submit="getResults()">
+            <div class="form-group">
+              <input type="text" name="text" class="form-control" id="url-box" placeholder="Enter URL..." style="max-width: 300px;" ng-model="url" required>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+
                 {{text}}
 
                 <hr>
@@ -44,8 +36,17 @@
                 {% endif %}
                 {% endwith %}
             </div>
-            <div class="col-md-6">
-                <p>List of links here</p>
+
+        {% raw %}
+<div ng-repeat="key in text">
+
+    <p>{{key}}</p>:
+    <p>{{text[key]}}</p>
+</div>
+
+                    {% endraw %}
+
+
                 {% if list %}
                 <table class="table table-striped">
                   <thead>
@@ -74,6 +75,26 @@
         </div>
     </div>
 
-
+ <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+ <script src="{{ url_for('static', filename='main.js') }}"></script>
 </body>
+
 </html>
+<!--                <form action="" method="post" novalidate role="form" ng-submit="getResults()">-->
+
+
+<!--                    <div class="form-group">-->
+<!--                    {{ form.hidden_tag() }}-->
+<!--                    <p>-->
+<!--                        {{ form.text.label }}<br>-->
+<!--                        {{ form.text(style="width: 88%; height: 214px") }}-->
+<!--                        {% for error in form.text.errors %}-->
+<!--                        <span style="color: red;">[{{ error }}]</span>-->
+<!--                        {% endfor %}-->
+<!--                    <p>-->
+<!--                        {{ form.submit() }}-->
+<!--                    </p>-->
+<!--                    </div>-->
+<!--                </form>-->

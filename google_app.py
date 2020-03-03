@@ -121,7 +121,7 @@ def yandex(query):
 
     # html = get_page(query)
     print(43423434234242)
-
+    print(3333, query)
     ya_dict = get_page_with_selenium(query)
 
     # Dict contain sentences [key] and html page yandex with query

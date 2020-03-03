@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../flask-by-example-part5/.idea/flask-by-example-part5.iml" filepath="$PROJECT_DIR$/../flask-by-example-part5/.idea/flask-by-example-part5.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/google-search.iml" filepath="$PROJECT_DIR$/.idea/google-search.iml" />
       <module fileurl="file://$PROJECT_DIR$/../mickroBlog/.idea/mickroBlog.iml" filepath="$PROJECT_DIR$/../mickroBlog/.idea/mickroBlog.iml" />
     </modules>

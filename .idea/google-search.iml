@@ -5,5 +5,6 @@
     <orderEntry type="jdk" jdkName="Python 3.6 (google-search-venv)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="mickroBlog" />
+    <orderEntry type="module" module-name="flask-by-example-part5" />
   </component>
 </module>

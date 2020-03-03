@@ -1,5 +1,4 @@
 import os
-#ffsffsdf
 import redis
 from rq import Worker, Queue, Connection
 
