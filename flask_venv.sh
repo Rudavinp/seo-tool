@@ -1,4 +1,4 @@
 #!/bin/bash
 
-source ../venvs/google-search-venv/bin/activate
+source ../venvs/seo-env/bin/activate
 export FLASK_APP=./easy_seo.py

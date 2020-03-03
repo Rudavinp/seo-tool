@@ -37,14 +37,15 @@
                 {% endwith %}
             </div>
 
-        {% raw %}
-<div ng-repeat="key in text">
+            <p>{{text|angular}}</p>
+<!--        {% raw %}-->
+<!--<tr ng-repeat="(key, val) in text">-->
 
-    <p>{{key}}</p>:
-    <p>{{text[key]}}</p>
-</div>
+<!--    <td>{{key}}</td>:-->
+<!--    <td>{{val}}</td>-->
+<!--</tr>-->
 
-                    {% endraw %}
+<!--                    {% endraw %}-->
 
 
                 {% if list %}
