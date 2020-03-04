@@ -17,14 +17,14 @@
         <div class="row">
             <div class="col-md-6">
                 <form role="form" method="post" ng-submit="getResults()">
-            <div class="form-group">
-              <input type="text" name="text" class="form-control" id="url-box" placeholder="Enter URL..." style="max-width: 300px;" ng-model="url" required>
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-          </form>
-
-                {{text}}
-
+                    <div class="form-group">
+                        <input type="text" name="text" class="form-control" id="url-box" placeholder="Enter URL..." style="max-width: 300px;" ng-model="url" required>
+                    </div>
+                    {% raw %}
+                        <button type="submit" class="btn btn-primary"
+                            ng-disabled="loading">{{ submitButtonText }}</button>
+                    {% endraw %}
+                </form>
                 <hr>
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
@@ -36,8 +36,29 @@
                 {% endif %}
                 {% endwith %}
             </div>
+            <div class="col-md-6">
+                {% raw %}
+                  <ul>
+                    <li ng-repeat="t in text">
+                      <span>{{t.sentence}}</span>
+                      <p>{{t.url}}</p>
+                    </li>
+                  </ul>
+                {% endraw %}
+            </div>
+        </div>
+        <div class="row">
+            <img class="col-sm-3 col-sm-offset-4" src="{{ url_for('static',
+                  filename='spinner.gif') }}" ng-show="loading">
+        </div>
+    </div>
+ <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+ <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>
 
-            <p>{{text|angular}}</p>
 <!--        {% raw %}-->
 <!--<tr ng-repeat="(key, val) in text">-->
 
@@ -48,41 +69,35 @@
 <!--                    {% endraw %}-->
 
 
-                {% if list %}
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Sentence</th>
-                      <th scope="col">Links</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  {% for sent, links in list.items() %}
-                  {% if links %}
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>{{ sent|truncate (50) }}</td>
-                        {% for link in links[:2] %}
-                      <td><a href="{{ link }}">{{ link|truncate (50) }}</a> </td>
-                        {% endfor %}
-                    </tr>
-                  {% endif %}
-                  {% endfor %}
-                  </tbody>
-                </table>
-                {% endif %}
-            </div>
-        </div>
-    </div>
+<!--                {% if list %}-->
+<!--                <table class="table table-striped">-->
+<!--                  <thead>-->
+<!--                    <tr>-->
+<!--                      <th scope="col">#</th>-->
+<!--                      <th scope="col">Sentence</th>-->
+<!--                      <th scope="col">Links</th>-->
+<!--                    </tr>-->
+<!--                  </thead>-->
+<!--                  <tbody>-->
+<!--                  {% for sent, links in list.items() %}-->
+<!--                  {% if links %}-->
+<!--                    <tr>-->
+<!--                      <th scope="row">1</th>-->
+<!--                      <td>{{ sent|truncate (50) }}</td>-->
+<!--                        {% for link in links[:2] %}-->
+<!--                      <td><a href="{{ link }}">{{ link|truncate (50) }}</a> </td>-->
+<!--                        {% endfor %}-->
+<!--                    </tr>-->
+<!--                  {% endif %}-->
+<!--                  {% endfor %}-->
+<!--                  </tbody>-->
+<!--                </table>-->
+<!--                {% endif %}-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
- <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
- <script src="{{ url_for('static', filename='main.js') }}"></script>
-</body>
 
-</html>
 <!--                <form action="" method="post" novalidate role="form" ng-submit="getResults()">-->
 
 

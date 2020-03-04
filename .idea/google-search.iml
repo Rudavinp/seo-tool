@@ -2,9 +2,10 @@
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="jdk" jdkName="Python 3.6 (seo-env)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.6 (google-search-venv)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="mickroBlog" />
     <orderEntry type="module" module-name="flask-by-example-part5" />
+    <orderEntry type="module" module-name="flask-by-example-part7" />
   </component>
 </module>

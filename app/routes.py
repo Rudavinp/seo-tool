@@ -10,10 +10,10 @@ import json
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    list_to_template = []
-    result_dict = {}
-    text = ''
-    form = InputTextForm()
+    # list_to_template = []
+    # result_dict = {}
+    # text = ''
+    # form = InputTextForm()
 
 
     # if form.validate_on_submit():
@@ -45,7 +45,7 @@ def index():
     # except Exception as e:
     #     print('yps', e)
 
-    return render_template('index.html', form=form, text=text, list=result_dict)
+    return render_template('index.html')
 
 
 @app.route('/start', methods=['POST'])
@@ -53,7 +53,7 @@ def get_counts():
     data = json.loads(request.data.decode())
     text = data["text"]
     print(32323232, text)
-    flash('Your text is being processed - {}'.format(text))
+    # flash('Your text is being processed - {}'.format(text))
 
     list_sentences = handle_form_text(text)
     print(1, list_sentences)
@@ -66,13 +66,17 @@ def get_counts():
 
 @app.route('/results/<job_key>', methods=['GET'])
 def get_results(job_key):
-    list_to_template = []
     res = queue.fetch_job(job_key)
 
     result_dict = res.result
     print(23233, result_dict)
     if result_dict:
-        # for k, v in result_dict.items():
+        json_dict=[]
+        for k, v in result_dict.items():
+            d = {}
+            d['sentence'] = k
+            d['url'] = v[:2]
+            json_dict.append(d)
         #     if result_dict.get(k):
         #         list_to_template.append(Markup('<span style="color: #FF6347">{}</span>'.format(k)))
         #     else:
@@ -80,7 +84,8 @@ def get_results(job_key):
         #
         # text = '.'.join(list_to_template)
         # text = Markup('<p>{}</p>'.format(text))
-        text = jsonify(result_dict)
-        print(66666, text)
+        print(444444, json_dict)
+        text = jsonify(json_dict)
+        print(66666, json_dict)
         return text, 200
     return 'Nay', 202

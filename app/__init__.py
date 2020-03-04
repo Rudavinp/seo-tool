@@ -5,12 +5,10 @@ from rq import Queue
 import os
 import redis
 from worker import conn
-import builtins
-builtins.unicode = str
-from flask_triangle import Triangle
+
 
 app = Flask(__name__)
-Triangle(app)
+
 app.config.from_object(Config)
 
 # r = Redis()
