@@ -9,7 +9,7 @@
 
   $scope.getResults = function() {
 
-    $log.log("test");
+//    $log.log("test");
 
     // get the URL from the input
     var userInput = $scope.url;
@@ -17,7 +17,7 @@
     // fire the API request
     $http.post('/start', {"text": userInput}).
       success(function(results) {
-        $log.log(results);
+//        $log.log(results);
         getWordCount(results);
         $scope.loading = true;
         $scope.submitButtonText = 'Loading...';
@@ -37,7 +37,7 @@
         $http.get('/results/'+jobID).
           success(function(data, status, headers, config) {
             if(status === 202) {
-              $log.log(data, status);
+//              $log.log(data, status);
             } else if (status === 200){
               $log.log(data);
               $scope.loading = false;
@@ -62,4 +62,3 @@
 
 
 
-console.log('loli')

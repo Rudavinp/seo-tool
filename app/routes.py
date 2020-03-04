@@ -13,7 +13,7 @@ def index():
     # list_to_template = []
     # result_dict = {}
     # text = ''
-    # form = InputTextForm()
+    form = InputTextForm()
 
 
     # if form.validate_on_submit():
@@ -45,7 +45,7 @@ def index():
     # except Exception as e:
     #     print('yps', e)
 
-    return render_template('index.html')
+    return render_template('index.html', form=form)
 
 
 @app.route('/start', methods=['POST'])
