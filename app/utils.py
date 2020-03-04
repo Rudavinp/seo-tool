@@ -1,7 +1,7 @@
-
+import re
 
 def handle_form_text(text):
-    list_sentences = text.split('.')
+    list_sentences = re.split(r'[\.;]+', text)
 
     list_sentences = list(map(lambda x: x.strip(), list_sentences))
 
