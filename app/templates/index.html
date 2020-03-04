@@ -18,7 +18,7 @@
             <div class="col-md-6">
                 <form role="form" method="post" ng-submit="getResults()">
                     <div class="form-group">
-                        <input type="text" name="text" class="form-control" id="url-box" placeholder="Enter URL..." style="max-width: 300px; height: 160px" ng-model="url" required>
+                        <textarea type="text" name="text" class="form-control" id="url-box" placeholder="Enter text..." rows="10" cols="45" ng-model="url" required> </textarea>
                     </div>
                     {% raw %}
                         <button type="submit" class="btn btn-primary"
