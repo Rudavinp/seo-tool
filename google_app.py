@@ -68,7 +68,7 @@ def get_page_with_selenium(query, w=False):
     binary = FirefoxBinary('/app/vendor/firefox/firefox')
     driver = Firefox(options=opts, firefox_binary=binary, executable_path='/app/vendor/geckodriver/geckodriver')
     # driver = Firefox(options=opts, firefox_binary=binary)
-    driver = Firefox(options=opts)
+    # driver = Firefox(options=opts)
     driver.wait = WebDriverWait(driver, 5)
     driver.get('https://www.yandex.ru')
     # try:
