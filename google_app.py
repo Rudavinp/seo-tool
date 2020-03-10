@@ -56,6 +56,8 @@ def get_page(query, w=True):
 def get_page_with_selenium(query, w=False):
     # COMMENT
     """
+    web: gunicorn easy_seo:app
+worker: python worker.py
     for work on heroku:
      - geckodriver&firefox: https://elements.heroku.com/buildpacks/evosystem-jp/heroku-buildpack-firefox
      - add RedosToGo on Heroku
@@ -71,7 +73,7 @@ def get_page_with_selenium(query, w=False):
     driver = Firefox(options=opts, firefox_binary=binary, executable_path='/app/vendor/geckodriver/geckodriver')
     # driver = Firefox(options=opts, firefox_binary=binary)
     # driver = Firefox(options=opts)
-    # driver.wait = WebDriverWait(driver, 5)
+    driver.wait = WebDriverWait(driver, 5)
     driver.get('https://www.yandex.ru')
     # try:
     # #

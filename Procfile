@@ -1,2 +1,1 @@
-web: gunicorn easy_seo:app
-worker: python worker.py
+web: sh heroku.sh

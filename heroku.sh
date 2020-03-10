@@ -1,3 +1,3 @@
 #!/bin/bash
-web: gunicorn easy_seo:app
-worker: python worker.py
+gunicorn easy_seo:app --daemon
+python worker.py
