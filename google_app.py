@@ -2,7 +2,7 @@
 
 # from googlesearch import search
 from urllib.request import Request, urlopen
-from urllib.parse import quote_plus
+from urllib.parse import quote_plus, urlparse
 from bs4 import BeautifulSoup
 
 from selenium.webdriver import Firefox
@@ -15,6 +15,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from markupsafe import Markup
 from flask import render_template
 from app import routes
+
 
 
 USER_AGENT = 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0)'
@@ -55,8 +56,9 @@ def get_page(query, w=True):
 def get_page_with_selenium(query, w=False):
     # COMMENT
     """
-    geckodriver&firefox: https://elements.heroku.com/buildpacks/evosystem-jp/heroku-buildpack-firefox
-    add RedosToGo on Heroku
+    for work on heroku:
+     - geckodriver&firefox: https://elements.heroku.com/buildpacks/evosystem-jp/heroku-buildpack-firefox
+     - add RedosToGo on Heroku
     :param query:
     :param w:
     :return:
@@ -65,10 +67,10 @@ def get_page_with_selenium(query, w=False):
 
     opts = Options()
     opts.set_headless()
-    # binary = FirefoxBinary('/app/vendor/firefox/firefox')
-    # driver = Firefox(options=opts, firefox_binary=binary, executable_path='/app/vendor/geckodriver/geckodriver')
+    binary = FirefoxBinary('/app/vendor/firefox/firefox')
+    driver = Firefox(options=opts, firefox_binary=binary, executable_path='/app/vendor/geckodriver/geckodriver')
     # driver = Firefox(options=opts, firefox_binary=binary)
-    driver = Firefox(options=opts)
+    # driver = Firefox(options=opts)
     driver.wait = WebDriverWait(driver, 5)
     driver.get('https://www.yandex.ru')
     # try:
@@ -106,16 +108,34 @@ def get_page_with_selenium(query, w=False):
         button.click()
         yandex_dict[sent] = driver.page_source
 
-    html = driver.page_source
-
-    driver.close()
     if w:
+        html = driver.page_source
         with open('index.html', 'w') as f:
             f.write(html)
+    driver.close()
 
     return yandex_dict
 
 def yandex(query):
+    """
+    Dict contain sentences [key] and html page yandex with query
+    this sentences as [item]
+
+    Parse each html page and check if:
+    - this page is capcha
+    - if sentences not found
+
+    Then split each page for blocks
+    And check if:
+    - block is advertise -> continue
+    - found snepper text in block and check
+    if sentences in snipper == sentences in query
+    then found link in this block and add to list of links
+    in the end add to result dict sentences[key]: list_links[item]
+    func return this result_dict
+    :param query: list
+    :return: dict
+    """
     result_dict = {}
 
 
@@ -124,21 +144,6 @@ def yandex(query):
     print(3333, query)
     ya_dict = get_page_with_selenium(query)
 
-    # Dict contain sentences [key] and html page yandex with query
-    # this sentences as [item]
-
-    # Parse each html page and check if:
-    # - this page is capcha
-    # - if sentences not found
-
-    # Then split each page for blocks
-    # And check if:
-    # - block is advertise -> continue
-    # - found snepper text in block and check
-    # if sentences in snipper == sentences in query
-    # then found link in this block and add to list of links
-    # in the end add to result dict sentences[key]: list_links[item]
-    # func return this result_dict
     for html in ya_dict:
 
         list_snippets = []
@@ -178,11 +183,17 @@ def yandex(query):
 
             if snip and html.lower().strip('"') in snip.text.lower():
                 link = b.find('a', class_='link')
+
+                _link = link.get('href')
+                pr = urlparse(_link)
+                if pr.netloc == 'www.yandex.ru':
+                    print(6666666, pr.netloc)
+                    continue
                 # print(777, link)
                 # link = b.find('a', class_='path path_show-https')
                 list_snippets.append(snip.text.lower())
                 # print(65, snip.text.lower())
-                _link = link.get('href')
+
                     # list_links.append(link.get('href'))
                 if not _link:
                     _link = 'Problems with link'
@@ -190,7 +201,6 @@ def yandex(query):
                 list_links.append(_link)
         result_dict[html] = list_links
                 # print(66, link.get('href'))
-        list_to_template = []
 
 
 

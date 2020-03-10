@@ -86,6 +86,5 @@ def get_results(job_key):
         # text = Markup('<p>{}</p>'.format(text))
         print(444444, json_dict)
         text = jsonify(json_dict)
-        print(66666, json_dict)
         return text, 200
     return 'Nay', 202
