@@ -65,6 +65,7 @@ worker: python worker.py
     :param w:
     :return:
     """
+    i = 0
     yandex_dict = {}
 
     opts = Options()
@@ -94,6 +95,7 @@ worker: python worker.py
 
     sent = '"' + query[0] +'"'
     box = driver.find_element_by_name('text')
+    print(i)
     button = driver.find_element_by_class_name('suggest2-form__button')
     # button = driver.find_element_by_class_name('button mini-suggest__button')
     box.send_keys(sent)
@@ -101,6 +103,7 @@ worker: python worker.py
     yandex_dict[sent] = driver.page_source
 
     for sent in query[1:]:
+        i += 1
         close = driver.find_element_by_class_name('input__clear')
         close.click()
         box = driver.find_element_by_name('text')
@@ -109,6 +112,7 @@ worker: python worker.py
         box.send_keys(sent)
         button.click()
         yandex_dict[sent] = driver.page_source
+        print(i)
 
     if w:
         html = driver.page_source
