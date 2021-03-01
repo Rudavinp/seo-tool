@@ -71,9 +71,9 @@ worker: python worker.py
     opts = Options()
     opts.set_headless()
     binary = FirefoxBinary('/app/vendor/firefox/firefox')
-    driver = Firefox(options=opts, firefox_binary=binary, executable_path='/app/vendor/geckodriver/geckodriver')
+    # driver = Firefox(options=opts, firefox_binary=binary, executable_path='/app/vendor/geckodriver/geckodriver')
     # driver = Firefox(options=opts, firefox_binary=binary)
-    # driver = Firefox(options=opts)
+    driver = Firefox(options=opts)
     driver.wait = WebDriverWait(driver, 5)
     driver.get('https://www.yandex.ru')
     # try:
@@ -96,11 +96,13 @@ worker: python worker.py
     sent = '"' + query[0] +'"'
     box = driver.find_element_by_name('text')
     print(i)
-    button = driver.find_element_by_class_name('suggest2-form__button')
+    # button = driver.find_element_by_class_name('suggest2-form__button')
     # button = driver.find_element_by_class_name('button mini-suggest__button')
+    button = driver.find_element_by_class_name('search2__button')
     box.send_keys(sent)
     button.click()
     yandex_dict[sent] = driver.page_source
+    # print(11, yandex_dict)
 
     for sent in query[1:]:
         i += 1
@@ -162,7 +164,7 @@ def yandex(query):
         ya_capcha = soup.find('p', class_='text-wrapper text-wrapper_info')
 
         if ya_capcha and ya_capcha.text.startswith('Нам очень жаль'):
-            # print(222, ya_capcha)
+            print(222, ya_capcha)
             return 'Ya Capcha'
 
         not_found = soup.find('div', class_= 'misspell__message')
@@ -179,6 +181,10 @@ def yandex(query):
         # print(99, blocks)
 
         for b in blocks :
+            links = {}
+            i = 1
+            links[1] = b.find('a', class_='link').get('href')
+            i += 1
             advertise = b.find('div', class_='label')
             if advertise and advertise.text == 'реклама':
                 # print(888, advertise.text)
@@ -259,6 +265,7 @@ def yandex(query):
     #
     #     snippets_links = zip(list_snippets, list_links)
     # print(333333, ya_dict)
+    # print('lol', links)
     print(result_dict)
     return result_dict
 

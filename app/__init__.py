@@ -9,7 +9,7 @@ from worker import conn
 
 app = Flask(__name__)
 
-app.config.from_object(Config)
+app.config.from_object(os.environ['APP_SETTINGS'])
 
 # r = Redis()
 # redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
@@ -17,4 +17,3 @@ app.config.from_object(Config)
 queue = Queue(connection=conn)
 
 from app import routes
-#fdsfsdf

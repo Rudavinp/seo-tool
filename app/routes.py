@@ -75,7 +75,7 @@ def get_results(job_key):
         for k, v in result_dict.items():
             d = {}
             d['sentence'] = k
-            d['url'] = v[:2]
+            d['url'] = v[:6]
             json_dict.append(d)
         #     if result_dict.get(k):
         #         list_to_template.append(Markup('<span style="color: #FF6347">{}</span>'.format(k)))

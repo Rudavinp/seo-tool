@@ -7,5 +7,7 @@
     <orderEntry type="module" module-name="mickroBlog" />
     <orderEntry type="module" module-name="flask-by-example-part5" />
     <orderEntry type="module" module-name="flask-by-example-part7" />
+    <orderEntry type="module" module-name="pytest-example" />
+    <orderEntry type="module" module-name="testFlaskApp" />
   </component>
 </module>
