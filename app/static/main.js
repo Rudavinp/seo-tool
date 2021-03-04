@@ -6,13 +6,14 @@
   function($scope, $log, $http, $timeout) {
    $scope.submitButtonText = 'Submit';
    $scope.loading = false;
-
   $scope.getResults = function() {
 
 //    $log.log("test");
 
     // get the URL from the input
     var userInput = $scope.url;
+    $log.log("test");
+    $log.log(userInput);
 
     // fire the API request
     $http.post('/start', {"text": userInput}).

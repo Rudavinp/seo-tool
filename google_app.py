@@ -6,7 +6,7 @@ from urllib.parse import quote_plus
 from bs4 import BeautifulSoup
 
 from selenium.webdriver import Firefox
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+# from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.firefox.options import Options
 # from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -52,7 +52,7 @@ def get_page(query, w=True):
 
 
 
-def get_page_with_selenium(query, w=False):
+def get_page_with_selenium(query, w=True):
     # COMMENT
     """
     geckodriver&firefox: https://elements.heroku.com/buildpacks/evosystem-jp/heroku-buildpack-firefox
@@ -71,6 +71,11 @@ def get_page_with_selenium(query, w=False):
     driver = Firefox(options=opts)
     driver.wait = WebDriverWait(driver, 5)
     driver.get('https://www.yandex.ru')
+    html = driver.page_source
+    if w:
+        print(1)
+        with open('index.html', 'w') as f:
+            f.write(html)
     # try:
     # #
     # #     # box = driver.find_element_by_id('text')
@@ -88,10 +93,11 @@ def get_page_with_selenium(query, w=False):
     # except TimeoutException:
     #     print('Box or Button didnt find')
 
-    sent = '"' + query[0] +'"'
+    sent = '"' + query[0] + '"'
     box = driver.find_element_by_name('text')
-    button = driver.find_element_by_class_name('suggest2-form__button')
-    # button = driver.find_element_by_class_name('button mini-suggest__button')
+    # button = driver.find_element_by_class_name('suggest2-form__button')
+    # button = driver.find_element_by_class_name('button mini-suggest')
+    button = driver.find_element_by_class_name('search2__button')
     box.send_keys(sent)
     button.click()
     yandex_dict[sent] = driver.page_source
@@ -110,6 +116,7 @@ def get_page_with_selenium(query, w=False):
 
     driver.close()
     if w:
+        print(1)
         with open('index.html', 'w') as f:
             f.write(html)
 
@@ -165,15 +172,20 @@ def yandex(query):
 
         blocks = soup.find_all('li', class_='serp-item')
         # blocks = soup.find_all('div', class_='organic')
-        # print(99, blocks)
-
+        print(99, len(blocks))
+        all_links = {}
+        i = 1
         for b in blocks :
+            all_links[i] = b.find('a', class_='link').get('href')
+            i += 1
+            # print(45)
             advertise = b.find('div', class_='label')
             if advertise and advertise.text == 'реклама':
                 # print(888, advertise.text)
                 print(3)
-                continue
+                # continue
             snip = b.find('div', class_='text-container')
+            # print(123, snip)
             # snip = b.find('div', class_='extended-text')
 
             if snip and html.lower().strip('"') in snip.text.lower():
@@ -244,5 +256,8 @@ def yandex(query):
     #     snippets_links = zip(list_snippets, list_links)
     # print(333333, ya_dict)
     print(result_dict)
+    # if all_links:
+    #     for x, y in all_links.items():
+    #         print(x, ": ", y)
     return result_dict
 

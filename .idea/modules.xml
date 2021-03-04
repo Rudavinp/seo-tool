@@ -6,6 +6,8 @@
       <module fileurl="file://$PROJECT_DIR$/../flask-by-example-part7/.idea/flask-by-example-part7.iml" filepath="$PROJECT_DIR$/../flask-by-example-part7/.idea/flask-by-example-part7.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/google-search.iml" filepath="$PROJECT_DIR$/.idea/google-search.iml" />
       <module fileurl="file://$PROJECT_DIR$/../mickroBlog/.idea/mickroBlog.iml" filepath="$PROJECT_DIR$/../mickroBlog/.idea/mickroBlog.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../test_flask/.idea/test_flask.iml" filepath="$PROJECT_DIR$/../test_flask/.idea/test_flask.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../2021/tryFlask2021/.idea/tryFlask2021.iml" filepath="$PROJECT_DIR$/../../2021/tryFlask2021/.idea/tryFlask2021.iml" />
     </modules>
   </component>
 </project>

@@ -1,5 +1,7 @@
 from flask import render_template, flash, redirect, url_for, session, request, jsonify
-from app import app, queue
+
+from app import queue
+from easy_seo import app
 from app.forms import InputTextForm
 import google_app
 from markupsafe import Markup
@@ -7,9 +9,10 @@ from .utils import handle_form_text
 import json
 
 
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    print(43434, request.path)
+    print(323123, app)
     # list_to_template = []
     # result_dict = {}
     # text = ''
@@ -50,24 +53,27 @@ def index():
 
 @app.route('/start', methods=['POST'])
 def get_counts():
+
     data = json.loads(request.data.decode())
+    print(34343434, data)
     text = data["text"]
+    print(32323232, type(text))
     print(32323232, text)
     # flash('Your text is being processed - {}'.format(text))
 
     list_sentences = handle_form_text(text)
     print(1, list_sentences)
     job = queue.enqueue(google_app.yandex, list_sentences)
-    session['key'] = job.id
+    # session['key'] = job.id
 
-    print(11111111111, session['key'])
+    # print(11111111111, session['key'])
     return job.get_id()
 
 
 @app.route('/results/<job_key>', methods=['GET'])
 def get_results(job_key):
     res = queue.fetch_job(job_key)
-
+    print(888888, request.path)
     result_dict = res.result
     print(23233, result_dict)
     if result_dict:
